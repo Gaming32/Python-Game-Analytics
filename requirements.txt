@@ -1,0 +1,9 @@
+
+
+# Client specific dependencies
+requests
+
+# Server specific dependencies
+flask
+semidbm # Database
+rencode # Serializer
