@@ -6,4 +6,3 @@ requests
 # Server specific dependencies
 flask
 semidbm # Database
-rencode # Serializer

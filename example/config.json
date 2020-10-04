@@ -1,0 +1,9 @@
+{
+    "profiles": {
+        "fields": {
+            "name": "string",
+            "age": "number",
+            "info": "any"
+        }
+    }
+}
