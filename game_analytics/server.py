@@ -161,6 +161,11 @@ def new_profile():
     return jsonify(response), 201
 
 
+@app.route('/brew-coffee')
+def brew_coffee():
+    return "Game analytics servers don't make coffee, sorry.", 418
+
+
 class ServerConfig(dict):
     host: str = '::'
     port: int = 26259 # "ANALY" typed on a phone keypad
