@@ -161,6 +161,11 @@ def new_profile():
     return jsonify(response), 201
 
 
+@app.route('/get-profile-fields')
+def get_profile_fields():
+    return flask.jsonify(app.config['config'].analytics_config['profiles']['fields'])
+
+
 @app.route('/brew-coffee')
 def brew_coffee():
     return "Game analytics servers don't make coffee, sorry.", 418
@@ -196,9 +201,6 @@ class ServerConfig(dict):
 
     def get_file_path(self, path):
         return os.path.join(self.root, path)
-
-
-global_config: ServerConfig = ServerConfig()
 
 
 def _fix_config(config: ServerConfig):
