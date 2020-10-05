@@ -1,31 +1,16 @@
 import argparse
 import json
 import os
-import numbers
 import secrets
-
-from game_analytics.semidbm_shelve import open as sopen
 
 import flask
 from flask import Flask, jsonify, request
 
+from game_analytics.semidbm_shelve import open as sopen
+from game_analytics.common import *
+
 module_name = 'game_analytics.server'
 app = Flask(module_name)
-
-
-config_data_types = {
-    'string': str,
-    'number': numbers.Number,
-    'boolean': bool,
-    'null': type(None),
-    'object': dict,
-    'array': list,
-
-    'any': object,
-
-    'int': int,
-    'float': float,
-}
 
 
 def documentation_response(func, message=None, status=400):
@@ -53,7 +38,7 @@ def push_profile(user_id: str, data: dict):
     if value is None:
         return documentation_response(push, '`value` key must be included for `profile` endpoint')
     if not verify_profile_field(field, value):
-        return documentation_response(push, f'invalid type for field `{field}` in `profile` endpoint`')
+        return documentation_response(push, f'invalid type for field `{field}` in `profile` endpoint')
     profile[field] = value
     app.config['db']['users'][user_id] = profile
 
@@ -156,7 +141,7 @@ def new_profile():
     created_profile = dict(request.json)
     user_id = secrets.token_urlsafe()
     app.config['db']['users'][user_id] = created_profile
-    response = dict(created_profile)
+    response = created_profile.copy()
     response['id'] = user_id
     return jsonify(response), 201
 
